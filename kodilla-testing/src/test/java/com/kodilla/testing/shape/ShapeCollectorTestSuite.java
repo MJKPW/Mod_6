@@ -61,6 +61,18 @@ public class ShapeCollectorTestSuite {
         }
 
         @Test
+        public void testGetFigureIndexOutOfBounds(){
+            //Given
+            Circle test = new Circle(2);
+            ShapeCollector collection = new ShapeCollector();
+            //When
+            collection.addFigure(test);
+            //Then
+            Assertions.assertNull(collection.getFigure(1));
+            Assertions.assertNull(collection.getFigure(-1));
+        }
+
+        @Test
         public void testShowFigures(){
             //Given
             ShapeCollector collection = new ShapeCollector();
