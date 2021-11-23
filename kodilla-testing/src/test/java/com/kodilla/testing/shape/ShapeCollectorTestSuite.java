@@ -52,11 +52,12 @@ public class ShapeCollectorTestSuite {
         @Test
         public void testGetFigure(){
             //Given
+            Circle test = new Circle(2);
             ShapeCollector collection = new ShapeCollector();
             //When
-            collection.addFigure(new Circle(2));
+            collection.addFigure(test);
             //Then
-            Assertions.assertEquals(1, collection.getLength());
+            Assertions.assertEquals(test, collection.getFigure(0));
         }
 
         @Test
