@@ -18,4 +18,16 @@ public class TemperaturesStub implements Temperatures {
 
         return stubResult;
     }
+
+    public double tempMean(){
+        double sum = 0;
+        Map<String, Double> data = getTemperatures();
+        for(String key : data.keySet())
+            sum += data.get(key);
+        return sum / data.size();
+    }
+
+    public double tempMedian(){
+        return 2.0;
+    }
 }
