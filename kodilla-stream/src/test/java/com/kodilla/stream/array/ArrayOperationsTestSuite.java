@@ -18,4 +18,13 @@ public class ArrayOperationsTestSuite {
         //Then
         Assertions.assertEquals(meanExpected, ArrayOperations.getAverage(array) , 0.001);
     }
+
+    @Test
+    public void testGetAverageEmptyArray(){
+        //Given
+        final int[] array = new int[0];
+        //When
+        //Then
+        Assertions.assertEquals(-1, ArrayOperations.getAverage(array) , 0.001);
+    }
 }

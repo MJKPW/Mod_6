@@ -87,29 +87,17 @@ class BoardTestSuite {
                            equals("In progress"))).
                            flatMap(tasks->tasks.getTasks().stream()).
                            map(Task::getCreated).
-                           map(date->LocalDate.now().minusDays(date.getDayOfMonth()).getDayOfMonth()).
+                           map(LocalDate::getDayOfMonth).
                            reduce(0, (days, current)-> days += current);
 
-        long days = project.getTaskLists().stream().
+        long count = project.getTaskLists().stream().
                             filter(n->(n.getName().
                             equals("In progress"))).
                             flatMap(tasks->tasks.getTasks().stream()).
                             map(Task::getCreated).count();
 
-        int countingDays = 0;
-        double expected = 0.0;
-
-        for(TaskList taskList : project.getTaskLists()){
-            if(!taskList.getName().equals("In progress"))
-                continue;
-            for(Task task : taskList.getTasks()){
-                LocalDate temp = LocalDate.now().minusDays(task.getCreated().getDayOfMonth());
-                expected += temp.getDayOfMonth();
-                countingDays++;
-            }
-        }
         //Then
-        assertEquals(expected / countingDays, (double)sum / days);
+        assertEquals(20, (double)sum / count);
     }
 
     private Board prepareTestData() {
