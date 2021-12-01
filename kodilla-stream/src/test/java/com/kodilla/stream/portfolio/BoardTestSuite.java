@@ -90,6 +90,8 @@ class BoardTestSuite {
                            map(LocalDate::getDayOfMonth).
                            reduce(0, (days, current)-> days += current);
 
+//date->LocalDate.now().minusDays(date.getDayOfMonth()).getDayOfMonth()
+
         long count = project.getTaskLists().stream().
                             filter(n->(n.getName().
                             equals("In progress"))).
