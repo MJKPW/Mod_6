@@ -13,7 +13,7 @@ public class Scissors implements Choice {
     }
 
     public int outcome(Choice opponentsChoice){
-        if(opponentsChoice instanceof Paper) {
+        if(opponentsChoice instanceof Paper || opponentsChoice instanceof Lizard) {
             wins++;
             return 1;
         }else if(opponentsChoice instanceof Scissors) {

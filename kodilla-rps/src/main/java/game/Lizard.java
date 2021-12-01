@@ -12,10 +12,10 @@ public class Lizard implements Choice{
     }
 
     public int outcome(Choice opponentsChoice){
-        if(opponentsChoice instanceof Paper) {
+        if(opponentsChoice instanceof Paper || opponentsChoice instanceof Spock) {
             wins++;
             return 1;
-        }else if(opponentsChoice instanceof Scissors) {
+        }else if(opponentsChoice instanceof Lizard) {
             draws++;
             return 0;
         }else {

@@ -13,10 +13,10 @@ public class Spock implements Choice{
     }
 
     public int outcome(Choice opponentsChoice){
-        if(opponentsChoice instanceof Paper) {
+        if(opponentsChoice instanceof Rock || opponentsChoice instanceof Scissors) {
             wins++;
             return 1;
-        }else if(opponentsChoice instanceof Scissors) {
+        }else if(opponentsChoice instanceof Spock) {
             draws++;
             return 0;
         }else {

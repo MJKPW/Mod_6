@@ -8,6 +8,8 @@ public class Game {
     private final Rock rock;
     private final Paper paper;
     private final Scissors scissors;
+    private final Lizard lizard;
+    private final Spock spock;
     private final Scanner scanner;
     private final Random rnd;
 
@@ -15,35 +17,55 @@ public class Game {
         rock = new Rock();
         paper = new Paper();
         scissors = new Scissors();
+        lizard = new Lizard();
+        spock = new Spock();
         rnd = new Random();
         scanner = new Scanner(System.in);
     }
 
     private Choice computerWins(String playersChoice){
-        if(playersChoice.equals("1"))
-            return new Paper();
-        else if(playersChoice.equals("2"))
-            return new Scissors();
-        else
-            return new Rock();
+        switch (playersChoice) {
+            case "1":
+                return (rnd.nextDouble() < 0.5) ? new Paper() : new Spock();
+            case "2":
+                return (rnd.nextDouble() < 0.5) ? new Scissors() : new Lizard();
+            case "3":
+                return (rnd.nextDouble() < 0.5) ? new Spock() : new Rock();
+            case "4":
+                return (rnd.nextDouble() < 0.5) ? new Scissors() : new Rock();
+            default:
+                return (rnd.nextDouble() < 0.5) ? new Paper() : new Lizard();
+        }
     }
 
     private Choice computerLoses(String playersChoice){
-        if(playersChoice.equals("1"))
-            return new Scissors();
-        else if(playersChoice.equals("2"))
-            return new Rock();
-        else
-            return new Paper();
+        switch (playersChoice) {
+            case "1":
+                return (rnd.nextDouble() < 0.5) ? new Scissors() : new Lizard();
+            case "2":
+                return (rnd.nextDouble() < 0.5) ? new Rock() : new Spock();
+            case "3":
+                return (rnd.nextDouble() < 0.5) ? new Paper() : new Lizard();
+            case "4":
+                return (rnd.nextDouble() < 0.5) ? new Paper() : new Spock();
+            default:
+                return (rnd.nextDouble() < 0.5) ? new Scissors() : new Rock();
+        }
     }
 
     private Choice computerDraws(String playersChoice){
-        if(playersChoice.equals("1"))
-            return new Rock();
-        else if(playersChoice.equals("2"))
-            return new Paper();
-        else
-            return new Scissors();
+        switch (playersChoice) {
+            case "1":
+                return new Rock();
+            case "2":
+                return new Paper();
+            case "3":
+                return new Scissors();
+            case "4":
+                return new Lizard();
+            default:
+                return new Spock();
+        }
     }
 
     //Result based on given odds
@@ -84,10 +106,12 @@ public class Game {
         rock.showResults();
         paper.showResults();
         scissors.showResults();
+        lizard.showResults();
+        spock.showResults();
     }
 
     //Start the game
-    public void play(double computerWiningOdds, double computerLosingOdds){
+    public void play(double computerWinningOdds, double computerLosingOdds){
 
         int numberOfRounds;
         int playersScore = 0;
@@ -105,11 +129,13 @@ public class Game {
             System.out.println("Type 1 to choose rock");
             System.out.println("Type 2 to choose paper");
             System.out.println("Type 3 to choose scissors");
+            System.out.println("Type 4 to choose lizard");
+            System.out.println("Type 5 to choose spock");
             System.out.println("Type x to finish the game");
             System.out.println("Type n to reset the game");
 
             String playersChoice = scanner.next();
-            Choice computersChoice = computersResult(computerWiningOdds,
+            Choice computersChoice = computersResult(computerWinningOdds,
                                                 computerLosingOdds, playersChoice);
 
             switch (playersChoice) {
@@ -132,6 +158,22 @@ public class Game {
                 case "3": {
                     System.out.print("Your scissors ");
                     int result = scissors.outcome(computersChoice);
+                    int score = processRound(result, computersChoice);
+                    playersScore += score;
+                    computersScore += (result == -1) ? 1 : 0;
+                    break;
+                }
+                case "4": {
+                    System.out.print("Your Lizard ");
+                    int result = lizard.outcome(computersChoice);
+                    int score = processRound(result, computersChoice);
+                    playersScore += score;
+                    computersScore += (result == -1) ? 1 : 0;
+                    break;
+                }
+                case "5": {
+                    System.out.print("Your Spock ");
+                    int result = spock.outcome(computersChoice);
                     int score = processRound(result, computersChoice);
                     playersScore += score;
                     computersScore += (result == -1) ? 1 : 0;

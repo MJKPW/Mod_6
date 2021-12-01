@@ -13,7 +13,7 @@ public class Paper implements Choice {
     }
 
     public int outcome(Choice opponentsChoice){
-        if(opponentsChoice instanceof Rock) {
+        if(opponentsChoice instanceof Rock || opponentsChoice instanceof Spock) {
             wins++;
             return 1;
         }else if(opponentsChoice instanceof Paper) {
