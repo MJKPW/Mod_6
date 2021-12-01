@@ -19,13 +19,44 @@ public class Game {
         scanner = new Scanner(System.in);
     }
 
-    private Choice computersResult(int random){
-        if(random == 1)
+    private Choice computerWins(String playersChoice){
+        if(playersChoice.equals("1"))
+            return new Paper();
+        else if(playersChoice.equals("2"))
+            return new Scissors();
+        else
             return new Rock();
-        else if(random == 2)
+    }
+
+    private Choice computerLoses(String playersChoice){
+        if(playersChoice.equals("1"))
+            return new Scissors();
+        else if(playersChoice.equals("2"))
+            return new Rock();
+        else
+            return new Paper();
+    }
+
+    private Choice computerDraws(String playersChoice){
+        if(playersChoice.equals("1"))
+            return new Rock();
+        else if(playersChoice.equals("2"))
             return new Paper();
         else
             return new Scissors();
+    }
+
+    //Result based on given odds
+    private Choice computersResult(double wining, double losing, String playersChoice){
+        double random = rnd.nextDouble();
+        if(wining + losing > 1)
+            throw new ArithmeticException("Provided wrong odds");
+        else if(random < wining)
+            return computerWins(playersChoice);
+        else if(wining <= random && random < wining + losing)
+            return computerLoses(playersChoice);
+        else
+            return computerDraws(playersChoice);
     }
 
     private int processRound(int outcome, Choice computer){
@@ -55,7 +86,8 @@ public class Game {
         scissors.showResults();
     }
 
-    public void play(){
+    //Start the game
+    public void play(double computerWiningOdds, double computerLosingOdds){
 
         int numberOfRounds;
         int playersScore = 0;
@@ -77,8 +109,8 @@ public class Game {
             System.out.println("Type n to reset the game");
 
             String playersChoice = scanner.next();
-            int random = 1 + rnd.nextInt(3);
-            Choice computersChoice = computersResult(random);
+            Choice computersChoice = computersResult(computerWiningOdds,
+                                                computerLosingOdds, playersChoice);
 
             switch (playersChoice) {
                 case "1": {
