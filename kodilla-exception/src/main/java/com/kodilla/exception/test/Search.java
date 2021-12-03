@@ -13,11 +13,9 @@ public class Search {
     public String findFlight(Flight flight) throws RouteNotFoundException{
         boolean found = false;
         String nameTarget = flight.getArrivalAirport();
-        for(String airport : airportAvailability.keySet()){
-            if(airport.equals(nameTarget)){
-                String message = airport + " is ";
-                return message += (airportAvailability.get(airport))? "available": "not available";
-            }
+        if(airportAvailability.containsKey(nameTarget)) {
+            String message = nameTarget + " is ";
+            return message += (airportAvailability.get(nameTarget))? "available": "not available";
         }
         throw new RouteNotFoundException("Airport not found");
     }
