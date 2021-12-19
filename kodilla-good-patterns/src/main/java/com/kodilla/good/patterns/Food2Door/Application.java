@@ -52,7 +52,7 @@ public class Application {
         extraFoodShop.addToCart(order, applePie, 1);
         extraFoodShop.addToCart(order, cheeseCake, 2);
 
-        healthyShop.addToCart(order, milk, 2);
+        healthyShop.addToCart(order, water, 2);
         healthyShop.addToCart(order, banana, 4);
         healthyShop.addToCart(order, salad, 5);
 
